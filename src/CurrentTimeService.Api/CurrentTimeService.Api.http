@@ -1,0 +1,6 @@
+@CurrentTimeService.Api_HostAddress = https://localhost:7111
+
+GET {{CurrentTimeService.Api_HostAddress}}/api/CurrentTime
+Accept: application/json
+
+###
