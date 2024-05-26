@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build and Deploy
 
 on:
   push:
@@ -39,3 +39,17 @@ jobs:
       run: |
         docker tag cts-api:latest ${{ secrets.DOCKERHUB_USERNAME }}/cts-api:latest
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/cts-api:latest
+    
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v1
+      with:
+        version: 'latest'
+
+    - name: Set up Kubeconfig
+      run: |
+        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f ./infrastructure/k8s/deployment.yml
+        kubectl apply -f ./infrastructure/k8s/service.yml
