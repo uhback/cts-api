@@ -26,3 +26,8 @@ spec:
           limits:
             cpu: 200m
             memory: 200Mi
+        env:
+          - name: ASPNETCORE_URLS
+            value: http://+:80
+      imagePullSecrets:
+      - name: myregistrykey
